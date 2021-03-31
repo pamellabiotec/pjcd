@@ -1,0 +1,47 @@
+# Oficina 3.1 - Marcos Antonio Maia Gomes Junior
+
+agenda = [
+    ((2020, 1, 13), (11, 50), 'Renovar identidade'),
+    ((2020, 1, 15), (16, 30), 'Fazer compras'),
+    ((2020, 1, 25), (8, 45), 'Autenticar documentos'),
+    ((2020, 2, 29), (14, 15), 'Prestar concurso'),
+    ((2020, 3, 15), (17, 50), 'Buscar bolo pro aniversário da vovó'),
+    ((2020, 3, 17), (13, 20), 'Consulta de revisão com dentista'),
+]
+
+def zero_esquerda(valor, tamanho):
+    return '0' * (tamanho - len(str(valor))) + str(valor)
+
+def formatar_data(ano, mes, dia, extenso=False):
+    if extenso:
+        meses = ['janeiro', 'fevereiro', 'março,', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']
+        return (zero_esquerda(dia, 2) + "/" + meses[mes-1][:3] + "/" + zero_esquerda(ano, 4))
+    else:
+        return (zero_esquerda(dia, 2) + "/" + zero_esquerda(mes, 2) + "/" + zero_esquerda(ano, 4))
+
+def formatar_hora(tempo=(0, 59)):
+    return zero_esquerda(str(tempo[0]), 2) + ":" + zero_esquerda(str(tempo[1]), 2)
+
+def imprimir_eventos(eventos, de_data=(1, 1, 1), ate_data=(9999, 12, 31)):
+    for i in range(len(eventos)):
+        if ((int(str(eventos[i][0][0]) + str(eventos[i][0][1]) + str(eventos[i][0][2])) >= int(str(de_data[0]) + str(de_data[1]) + str(de_data[2]))) and (int(str(eventos[i][0][0]) + str(eventos[i][0][1]) + str(eventos[i][0][2])) <= int(str(ate_data[0]) + str(ate_data[1]) + str(ate_data[2])))):
+            print(formatar_data(eventos[i][0][0], eventos[i][0][1], eventos[i][0][2], True) + " - " + formatar_hora(eventos[i][1]) + ": " + eventos[i][2]) 
+
+
+# Teste 1 - Exibindo tudo
+print("Exibindo tudo ---------------------------------------------")
+imprimir_eventos(agenda)
+
+print("-----------------------------------------------------------")
+
+# Teste 2 - Exibindo todos em que a data seja maior que 20/01/2020
+print("Exibindo todos em que a data seja maior que 20/01/2020")
+imprimir_eventos(agenda, (2020, 1, 20))
+
+print("-----------------------------------------------------------")
+
+# Teste 3 - Exibindo todos em que a data seja manor que 15/03/2020
+print("Exibindo todos em que a data seja manor que 15/03/2020")
+imprimir_eventos(agenda, ate_data=(2020, 3, 15))
+
+print("-----------------------------------------------------------")
